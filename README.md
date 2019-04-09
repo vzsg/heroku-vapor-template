@@ -15,3 +15,59 @@
         <img src="http://img.shields.io/badge/swift-4.2-brightgreen.svg" alt="Swift 4.2">
     </a>
 </p>
+
+# Using the template
+
+1. Clone the template
+    
+    ```bash
+    # You can use either the Vapor Toolbox, or just git clone directly.
+
+    $ vapor new YourApp --template=vzsg/heroku-vapor-template
+    
+    # Or:
+    
+    $ git clone https://github.com/vzsg/heroku-vapor-template YourApp
+    $ cd YourApp
+    $ rm -rf .git           # detach folder from template repo
+    $ git init              # start new Git repo
+    # Optional:  edit Package.swift - change "VaporApp" to whatever you like
+    ```
+    
+1. Create a Heroku application
+
+    ```bash
+    # Append --region=eu if you want to use the EU region
+    $ heroku apps:create your-heroku-app-name
+    ```
+
+1. Set up buildpack
+
+    ```bash
+    $ heroku buildpacks:set vapor/vapor
+    ```
+    
+1. Add a free database
+
+    ```bash
+    $ heroku addons:create heroku-postgresql:hobby-dev
+    ```
+    
+1. Commit and push
+
+    ```bash
+    $ git add .
+    $ git commit -m "Initial commit"
+    $ git push heroku master
+
+1. Test if it's working
+
+    ```bash
+    $ heroku open
+    ```
+    
+# Changes from the original api-template
+
+- PostgreSQL is used instead of SQLite, which is configured with the `DATABASE_URL` environment variable if provided. The configuration is compatible with both the free and paid plans of Heroku Postgres.
+- The provided Procfile ensures that all required command line parameters are passed to the app.
+- The HSTSMiddleware automatically redirects HTTP calls to their HTTPS equivalents.
