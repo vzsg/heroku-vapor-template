@@ -25,7 +25,7 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
     if let databaseURL = ProcessInfo.processInfo.environment["DATABASE_URL"] {
         _psqlConfig = PostgreSQLDatabaseConfig(url: databaseURL, transport: .unverifiedTLS)
     } else {
-        _psqlConfig = PostgreSQLDatabaseConfig(url: "postgres://root@localhost:3306")
+        _psqlConfig = PostgreSQLDatabaseConfig(url: "postgres://root:root@localhost:5432/test")
     }
 
     guard let psqlConfig = _psqlConfig else {
